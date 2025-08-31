@@ -5,6 +5,8 @@ const WelcomeTo = () => {
     <>
 
 <section className="flex items-center justify-center min-h-[70vh] py-12 px-4 sm:px-8 md:px-16 lg:px-20 bg-white">
+  
+
   <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl gap-10 lg:gap-16">
     
     {/* Left Image */}

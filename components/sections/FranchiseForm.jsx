@@ -27,8 +27,8 @@ const FranchiseForm = () => {
 
         {/* Mobile: Heading and Call section on top */}
         <div className="block md:hidden w-full px-4 mb-6">
-          <h2 className="text-3xl xs:text-4xl sm:text-5xl text-[#23aa5d] mb-3 font-[heading-1] text-center">
-            Frenchise Enquiry Form
+          <h2 className="text-3xl xs:text-3xl md:text-5xl text-[#23aa5d] mb-3 font-[heading-1] text-center">
+            Franchise Enquiry Form
           </h2>
           <p className="text-base xs:text-lg leading-relaxed text-gray-200 font-[para] mb-5 max-w-lg mx-auto text-center">
             Intrested in owning a Zussioberry franchise? Submit your details
@@ -40,19 +40,11 @@ const FranchiseForm = () => {
               <i className="fas fa-phone-alt mr-2"></i>+91 9769596096
             </p>
           </div>
-          
-          {/* 
-          <div className="border border-white px-6 py-4 sm:px-6 sm:py-5 rounded-md w-full max-w-xs flex flex-col items-center justify-center text-center mx-auto md:mx-0">
-            <p className="mb-2 sm:mb-3 text-lg sm:text-xl whitespace-nowrap font-[para]">Any Queries? Call At</p>
-            <p className="text-[#23aa5d] text-lg sm:text-xl flex items-center whitespace-nowrap">
-              <i className="fas fa-phone-alt mr-2"></i>+91 9769596096
-            </p>
-          </div> */}
         </div>
 
         {/* Form Section */}
-        <div className="w-full md:w-1/2 relative flex flex-col items-center px-4 sm:px-0">
-          <div className="relative z-10 w-full bg-black bg-opacity-60 p-0 rounded-md font-[para] mt-4 md:mt-0">
+        <div className="w-[35rem] relative flex flex-col items-center px-4 sm:px-0 bg-black opacity-90">
+          <div className="relative z-10 w-full  p-0 rounded-md font-[para] md:mt-0">
 
             <div className="w-full relative">
               <img
@@ -61,7 +53,7 @@ const FranchiseForm = () => {
                 className="w-full object-cover"
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-black text-xl xs:text-2xl sm:text-3xl font-[para] mb-6 font-bold px-4 xs:px-6 py-2 rounded text-center">
+                <span className="text-black text-xl xs:text-2xl sm:text-3xl font-[para] -mt-3 mb-6 font-bold px-4 xs:px-6 py-2 rounded text-center">
                   Start Your Business Journey
                 </span>
               </div>

@@ -11,16 +11,14 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-
 @font-face {
   font-family: 'para';
   src: url('/fonts/Poppins-Light.ttf');
 }
 
-
 @font-face {
   font-family: 'heading-1';
-  src: url('/fonts/DancingScript.ttf');
+  src: url('/fonts/Brother-Bold.ttf');
 }
 
 @font-face {

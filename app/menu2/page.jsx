@@ -23,22 +23,13 @@ const page = () => {
       {/* Background Illustration */}
       <div className="absolute inset-0 pointer-events-none z-0">
         <Image
-          src="/assets/SmallZussioberry/bg_img.png"
+          src="/assets/SectionBG.png"
           alt="Background Illustration"
           fill
           priority
-          className="object-cover opacity-90"
+          className="object-cover opacity-100"
           style={{ zIndex: 0 }}
         />
-        {/* Make the white background more transparent so the background image appears perfectly */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "rgba(255,255,255,0.01)",
-            zIndex: 1
-          }}
-          aria-hidden="true"
-        ></div>
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
@@ -87,7 +78,7 @@ const page = () => {
       {/* Left Side Decorative Image */}
       <div className="hidden md:block absolute left-0 top-8 -z-10">
         <Image
-          src="/assets/SmallZussioberry/beverage.png"
+          src="/assets/SectionLeftImg.png"
           alt="Orange Slice"
           width={180}
           height={180}
@@ -160,7 +151,7 @@ const page = () => {
       </div>
       <div className="absolute bottom-0 left-0 w-full rotate-180">
         <Image
-          src="/assets/SmallZussioberry/beverage/pattern-2.png"
+          src="/assets/SectionBottomTexture.png"
           alt="Overlay Bottom"
           width={1600}
           height={100}

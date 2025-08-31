@@ -1,3 +1,307 @@
+// 'use client';
+// import React, { useState, useRef, useEffect } from 'react';
+// import Link from 'next/link';
+// import { usePathname } from 'next/navigation';
+// import { Menu, X, ChevronDown } from 'lucide-react';
+// import { IoCallOutline } from "react-icons/io5";
+// import { CiMail } from "react-icons/ci";
+
+// const navLinks = [
+//   { href: '/franchise', label: 'Franchise' },
+//   { href: '/gallery', label: 'Gallery' },
+//   { href: '/blogs', label: 'Blog' },
+//   { href: '/news', label: 'News' },
+//   { href: '/career', label: 'Career' },
+//   { href: '/contact', label: 'Contact'}
+// ];
+
+// const aboutPopupLinks = [
+//   { href: '/about-us', label: 'About Us' },
+//   { href: '/team', label: 'Our Team' }
+// ];
+
+// const Navbar = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+//   const [aboutPopupOpen, setAboutPopupOpen] = useState(false);
+//   const [isSticky, setIsSticky] = useState(false);
+//   const aboutBtnRef = useRef(null);
+//   const aboutPopupRef = useRef(null);
+//   const mobileMenuRef = useRef(null);
+//   const pathname = usePathname();
+
+//   const handleCloseMenu = () => setIsOpen(false);
+
+//   const isActive = (href) => {
+//     if (href === '/') {
+//       return pathname === '/';
+//     }
+//     return pathname.startsWith(href);
+//   };
+
+//   // Close About popup when clicking outside
+//   useEffect(() => {
+//     if (!aboutPopupOpen) return;
+//     function handleClick(e) {
+//       if (
+//         aboutPopupRef.current &&
+//         !aboutPopupRef.current.contains(e.target) &&
+//         aboutBtnRef.current &&
+//         !aboutBtnRef.current.contains(e.target)
+//       ) {
+//         setAboutPopupOpen(false);
+//       }
+//     }
+//     document.addEventListener('mousedown', handleClick);
+//     return () => document.removeEventListener('mousedown', handleClick);
+//   }, [aboutPopupOpen]);
+
+//   // Close About popup on route change
+//   useEffect(() => {
+//     setAboutPopupOpen(false);
+//   }, [pathname]);
+
+//   // Sticky navbar on scroll
+//   useEffect(() => {
+//     const handleScroll = () => {
+//       const scrollTop = window.scrollY;
+//       setIsSticky(scrollTop > 100);
+//     };
+
+//     window.addEventListener('scroll', handleScroll);
+//     return () => window.removeEventListener('scroll', handleScroll);
+//   }, []);
+
+//   // Prevent body scroll when mobile menu is open
+//   useEffect(() => {
+//     if (isOpen) {
+//       document.body.style.overflow = 'hidden';
+//     } else {
+//       document.body.style.overflow = 'unset';
+//     }
+    
+//     return () => {
+//       document.body.style.overflow = 'unset';
+//     };
+//   }, [isOpen]);
+
+//   return (
+//     <header className={`${isSticky ? 'fixed top-0 left-0 w-full bg-white shadow-md z-50' : 'relative'}`}>
+//       {/* Top bar - Hidden when sticky */}
+//       {!isSticky && (
+//         <div className="max-w-7xl mx-auto flex items-center justify-between py-4 md:py-6 border-b-2 border-[#c0baba] font-[para] px-4">
+          
+//           <div className="hidden md:flex flex-col gap-1 text text-black">
+//             <div className='flex items-center gap-4'>
+//               <IoCallOutline className='text-[#23aa5d]'/>
+//               <span>Call at: +91 9769596096</span>
+//             </div>
+
+//             <div className='flex items-center gap-4'>
+//               <CiMail className='text-[#23aa5d]'/>
+//               <span>Mail at: franchise@zussioberry.com</span>
+//             </div>
+//           </div>
+
+//           <div className="flex items-center">
+//             <img
+//               src="/assets/SmallZussioberry/zussioberry_logo.png"
+//               className="w-[120px] h-[50px] md:w-[140px] md:h-[60px] object-contain"
+//               alt="Zussio Berry"
+//             />
+//           </div>
+
+//           <div className="hidden md:block">
+//             <Link
+//               href="/franchise"
+//               className="bg-[#23aa5d] text-white px-5 py-2 cursor-pointer rounded-md hover:bg-green-700 transition inline-block text-center"
+//             >
+//               Get Franchise
+//             </Link>
+//           </div>
+
+//           {/* Mobile Hamburger */}
+//           <div className="md:hidden">
+//             <button
+//               onClick={() => setIsOpen(!isOpen)}
+//               className="p-2 w-10 h-10 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 z-50 relative"
+//               aria-label="Toggle menu"
+//             >
+//               {isOpen ? <X size={22} /> : <Menu size={22} />}
+//             </button>
+//           </div>
+//         </div>
+//       )}
+
+//       {/* Mobile Menu Overlay */}
+//       {isOpen && (
+//         <div 
+//           className="fixed inset-0 bg-black/70 z-40 md:hidden cursor-pointer"
+//           onClick={handleCloseMenu}
+//         />
+//       )}
+
+//       {/* Mobile Menu */}
+//       <div 
+//         ref={mobileMenuRef}
+//         className={`fixed top-0 right-0 h-full w-4/5 max-w-sm bg-white z-50 shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden ${
+//           isOpen ? 'translate-x-0' : 'translate-x-full'
+//         }`}
+//       >
+//         <div className="flex flex-col h-full pt-20 pb-6 px-6 overflow-y-auto">
+//           {/* Close button */}
+//           <button
+//             className="absolute top-6 right-6 text-gray-600"
+//             onClick={handleCloseMenu}
+//             aria-label="Close menu"
+//           >
+//             <X size={28} />
+//           </button>
+
+//           {/* Menu Items */}
+//           <ul className="flex flex-col space-y-3 text-center text-lg font-medium mb-8">
+//             <li>
+//               <Link
+//                 href="/"
+//                 onClick={handleCloseMenu}
+//                 className={`block py-2 hover:text-green-600 transition-colors ${
+//                   isActive('/') ? 'text-green-600' : 'text-black'
+//                 }`}
+//               >
+//                 Home
+//               </Link>
+//             </li>
+            
+//             <li>
+//               <Link
+//                 href="/about-us"
+//                 onClick={handleCloseMenu}
+//                 className={`block py-2 hover:text-green-600 transition-colors ${
+//                   isActive('/about-us') ? 'text-green-600' : 'text-black'
+//                 }`}
+//               >
+//                 About Zussioberry
+//               </Link>
+//             </li>
+
+//             <li>
+//               <Link
+//                 href="/team"
+//                 onClick={handleCloseMenu}
+//                 className={`block py-2 hover:text-green-600 transition-colors ${
+//                   isActive('/about-us') ? 'text-green-600' : 'text-black'
+//                 }`}
+//               >
+//                 Our Team
+//               </Link>
+//             </li>
+            
+//             {navLinks.map(({ href, label }) => (
+//               <li key={href}>
+//                 <Link
+//                   href={href}
+//                   onClick={handleCloseMenu}
+//                   className={`block py-2 hover:text-green-600 transition-colors ${
+//                     isActive(href) ? 'text-green-600' : 'text-black'
+//                   }`}
+//                 >
+//                   {label}
+//                 </Link>
+//               </li>
+//             ))}
+//           </ul>
+
+//           {/* Contact Info */}
+//           <div className="border-t border-gray-200 pt-6 space-y-4 text-gray-700">
+//             <div className="flex items-center gap-3">
+//               <IoCallOutline className='text-[#23aa5d]'/>
+//               <span>+91 9769596096</span>
+//             </div>
+//             <div className="flex items-center gap-3">
+//               <CiMail className='text-[#23aa5d]'/>
+//               <span>franchise@zussioberry.com</span>
+//             </div>
+//             <Link
+//               href="/franchise"
+//               className="block text-center bg-[#23aa5d] text-white w-full py-3 rounded-md hover:bg-green-700 transition mt-4"
+//               onClick={handleCloseMenu}
+//             >
+//               Get Franchise
+//             </Link>
+//           </div>
+//         </div>
+//       </div>
+
+//       {/* Desktop Navigation */}
+//       <nav className={`hidden md:block ${isSticky ? 'bg-white shadow-md py-3' : ''}`}>
+//         <div className="max-w-7xl mx-auto flex justify-center items-center py-3">
+//           <ul className="flex items-center space-x-12 lg:space-x-16 xl:space-x-20 text-lg font-medium">
+//             <li>
+//               <Link
+//                 href="/"
+//                 className={`hover:text-green-600 transition-colors ${
+//                   isActive('/') ? 'text-green-600 border-t-2 border-green-600 pt-2' : ''
+//                 }`}
+//               >
+//                 Home
+//               </Link>
+//             </li>
+            
+//             <li className="relative">
+//               <button
+//                 ref={aboutBtnRef}
+//                 className={`hover:text-green-600 transition-colors px-2 py-1 cursor-pointer flex items-center gap-1 ${
+//                   (isActive('/about-us') || isActive('/team')) ? 'text-green-600 border-t-2 border-green-600 pt-2' : ''
+//                 }`}
+//                 onClick={() => setAboutPopupOpen((open) => !open)}
+//               >
+//                 About
+//                 <ChevronDown
+//                   size={18}
+//                   className={`transition-transform duration-200 ${aboutPopupOpen ? 'rotate-180' : ''}`}
+//                 />
+//               </button>
+              
+//               {aboutPopupOpen && (
+//                 <div
+//                   ref={aboutPopupRef}
+//                   className="absolute left-1/2 -translate-x-1/2 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-lg z-50 py-2"
+//                 >
+//                   {aboutPopupLinks.map(({ href, label }) => (
+//                     <Link
+//                       key={href}
+//                       href={href}
+//                       className="block px-4 py-2 text-gray-800 hover:bg-gray-100 hover:text-[#23aa5d] transition-colors"
+//                       onClick={() => setAboutPopupOpen(false)}
+//                     >
+//                       {label}
+//                     </Link>
+//                   ))}
+//                 </div>
+//               )}
+//             </li>
+            
+//             {navLinks.map(({ href, label }) => (
+//               <li key={href}>
+//                 <Link
+//                   href={href}
+//                   className={`hover:text-green-600 transition-colors ${
+//                     isActive(href) ? 'text-green-600 border-t-2 border-green-600 pt-2' : ''
+//                   }`}
+//                 >
+//                   {label}
+//                 </Link>
+//               </li>
+//             ))}
+//           </ul>
+//         </div>
+//       </nav>
+//     </header>
+//   );
+// };
+
+// export default Navbar;
+
+
 'use client';
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
@@ -6,9 +310,7 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 import { IoCallOutline } from "react-icons/io5";
 import { CiMail } from "react-icons/ci";
 
-// Remove 'Home' from navLinks, will render it manually as first item
 const navLinks = [
-  // { href: '/', label: 'Home' }, // handled separately
   { href: '/franchise', label: 'Franchise' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/blogs', label: 'Blog' },
@@ -25,13 +327,14 @@ const aboutPopupLinks = [
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [aboutPopupOpen, setAboutPopupOpen] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
   const aboutBtnRef = useRef(null);
   const aboutPopupRef = useRef(null);
+  const mobileMenuRef = useRef(null);
   const pathname = usePathname();
 
   const handleCloseMenu = () => setIsOpen(false);
 
-  // Helper to check if link is active
   const isActive = (href) => {
     if (href === '/') {
       return pathname === '/';
@@ -56,125 +359,237 @@ const Navbar = () => {
     return () => document.removeEventListener('mousedown', handleClick);
   }, [aboutPopupOpen]);
 
-  // Close About popup on route change (optional, for better UX)
+  // Close About popup on route change
   useEffect(() => {
     setAboutPopupOpen(false);
   }, [pathname]);
 
+  // Sticky navbar on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      setIsSticky(scrollTop > 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
   return (
-    <header>
-      {/* Top bar */}
-      <div className="max-w-7xl mx-auto flex items-center justify-between py-6 border-b-2 border-[#c0baba] font-[para]">
-        
-        <div className="hidden md:flex flex-col gap-1 text text-black">
-          <div className='flex items-center gap-4'>
-            <IoCallOutline className='text-[#23aa5d]'/>
-            <span>Call at: +91 9769596096</span>
+    <header className={`${isSticky ? 'fixed top-0 left-0 w-full bg-white shadow-md z-50' : 'relative'}`}>
+      {/* Top bar - Hidden when sticky */}
+      {!isSticky && (
+        <div className="max-w-7xl mx-auto flex items-center justify-between py-4 md:py-6 border-b-2 border-[#c0baba] font-[para] px-4">
+          
+          <div className="hidden md:flex flex-col gap-1 text text-black">
+            <div className='flex items-center gap-4'>
+              <IoCallOutline className='text-[#23aa5d]'/>
+              <span>Call at: +91 9769596096</span>
+            </div>
+
+            <div className='flex items-center gap-4'>
+              <CiMail className='text-[#23aa5d]'/>
+              <span>Mail at: franchise@zussioberry.com</span>
+            </div>
           </div>
 
-          <div className='flex items-center gap-4'>
-            <CiMail className='text-[#23aa5d]'/>
-            <span>Mail at: franchise@zussioberry.com</span>
+          <div className="flex items-center">
+            <img
+              src="/assets/SmallZussioberry/zussioberry_logo.png"
+              className="w-[120px] h-[50px] md:w-[140px] md:h-[60px] object-contain"
+              alt="Zussio Berry"
+            />
+          </div>
+
+          <div className="hidden md:block">
+            <Link
+              href="/franchise"
+              className="bg-[#23aa5d] text-white px-5 py-2 cursor-pointer rounded-md hover:bg-green-700 transition inline-block text-center"
+            >
+              Get Franchise
+            </Link>
+          </div>
+
+          {/* Mobile Hamburger */}
+          <div className="md:hidden">
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="p-2 w-10 h-10 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 z-50 relative"
+              aria-label="Toggle menu"
+            >
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
+      )}
 
-        <div className="flex items-center">
-          <img
-            src="/assets/SmallZussioberry/zussioberry_logo.png"
-            className="w-[140px] h-[60px] object-contain"
-            alt="Zussio Berry"
-          />
-        </div>
-
-        <div className="hidden md:block">
-          <Link
-            href="/franchise"
-            className="bg-[#23aa5d] text-white px-5 py-2 cursor-pointer rounded-md hover:bg-green-700 transition inline-block text-center"
-          >
-            Get Franchise
-          </Link>
-        </div>
-
-        {/* Mobile Hamburger */}
-        <div className="md:hidden">
+      {/* Compact Mobile Navbar (shown when sticky on mobile) */}
+      {isSticky && (
+        <div className="md:hidden flex items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
+          <div className="flex items-center">
+            <img
+              src="/assets/SmallZussioberry/zussioberry_logo.png"
+              className="w-[100px] h-[40px] object-contain"
+              alt="Zussio Berry"
+            />
+          </div>
+          
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 w-10 h-10 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="p-2 w-10 h-10 flex items-center justify-center text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 z-50 relative"
+            aria-label="Toggle menu"
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </div>
+      )}
 
+      {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div
+        <div 
           className="fixed inset-0 bg-black/70 z-40 md:hidden cursor-pointer"
           onClick={handleCloseMenu}
         />
       )}
 
-      {/* Navigation Menu */}
-      <nav
-        id="navbar-menu"
-        className={`md:static md:h-auto md:w-auto md:bg-transparent 
-          md:opacity-100 md:visible md:flex md:flex-row md:items-center md:justify-center
-          fixed inset-0 h-full w-full bg-white z-50 flex flex-col transition-all duration-300 ease-in-out
-          pt-20 md:pt-0
-          ${isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}
-        `}
+      {/* Mobile Menu */}
+      <div 
+        ref={mobileMenuRef}
+        className={`fixed top-0 right-0 h-full w-4/5 max-w-sm bg-white z-50 shadow-2xl transform transition-transform duration-300 ease-in-out md:hidden ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
       >
-        {/* Close button for mobile */}
-        <button
-          className="absolute top-6 right-6 text-3xl text-gray-600 md:hidden"
-          onClick={handleCloseMenu}
-        >
-          <X size={28} />
-        </button>
+        <div className="flex flex-col h-full pt-20 pb-6 px-6 overflow-y-auto">
+          {/* Close button */}
+          <button
+            className="absolute top-6 right-6 text-gray-600"
+            onClick={handleCloseMenu}
+            aria-label="Close menu"
+          >
+            <X size={28} />
+          </button>
 
-        {/* Menu Items */}
-        <ul className="text-lg text-black flex flex-col space-y-6 md:space-y-0 md:flex-row md:items-center mb-5 md:space-x-20 px-6 py-4 md:py-2 font-medium my-3">
-          {/* Home link as first item */}
-          <li className="flex flex-col items-center">
+          {/* Menu Items */}
+          <ul className="flex flex-col space-y-3 text-center text-lg font-medium mb-8">
+            <li>
+              <Link
+                href="/"
+                onClick={handleCloseMenu}
+                className={`block py-2 hover:text-green-600 transition-colors ${
+                  isActive('/') ? 'text-green-600' : 'text-black'
+                }`}
+              >
+                Home
+              </Link>
+            </li>
+            
+            <li>
+              <Link
+                href="/about-us"
+                onClick={handleCloseMenu}
+                className={`block py-2 hover:text-green-600 transition-colors ${
+                  isActive('/about-us') ? 'text-green-600' : 'text-black'
+                }`}
+              >
+                About Zussioberry
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/team"
+                onClick={handleCloseMenu}
+                className={`block py-2 hover:text-green-600 transition-colors ${
+                  isActive('/about-us') ? 'text-green-600' : 'text-black'
+                }`}
+              >
+                Our Team
+              </Link>
+            </li>
+            
+            {navLinks.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  onClick={handleCloseMenu}
+                  className={`block py-2 hover:text-green-600 transition-colors ${
+                    isActive(href) ? 'text-green-600' : 'text-black'
+                  }`}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Contact Info */}
+          <div className="border-t border-gray-200 pt-6 space-y-4 text-gray-700">
+            <div className="flex items-center gap-3">
+              <IoCallOutline className='text-[#23aa5d]'/>
+              <span>+91 9769596096</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <CiMail className='text-[#23aa5d]'/>
+              <span>franchise@zussioberry.com</span>
+            </div>
             <Link
-              href="/"
+              href="/franchise"
+              className="block text-center bg-[#23aa5d] text-white w-full py-3 rounded-md hover:bg-green-700 transition mt-4"
               onClick={handleCloseMenu}
-              className={`hover:text-green-600 transition-colors ${
-                isActive('/')
-                  ? 'text-green-600 border-t-2 border-green-600 md:pt-2'
-                  : ''
-              }`}
-              aria-current={isActive('/') ? 'page' : undefined}
             >
-              Home
+              Get Franchise
             </Link>
-          </li>
-          {/* About button with popup for desktop, normal link for mobile */}
-          <li className="flex flex-col items-center">
-            {/* Desktop: About with popup */}
-            <div className="hidden md:block relative">
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Navigation */}
+      <nav className={`hidden md:block ${isSticky ? 'bg-white shadow-md py-3' : ''}`}>
+        <div className="max-w-7xl mx-auto flex justify-center items-center py-3">
+          <ul className="flex items-center space-x-12 lg:space-x-16 xl:space-x-20 text-lg font-medium">
+            <li>
+              <Link
+                href="/"
+                className={`hover:text-green-600 transition-colors ${
+                  isActive('/') ? 'text-green-600 border-t-2 border-green-600 pt-2' : ''
+                }`}
+              >
+                Home
+              </Link>
+            </li>
+            
+            <li className="relative">
               <button
                 ref={aboutBtnRef}
-                type="button"
-                className={`hover:text-green-600 transition-colors px-2 py-1 focus:outline-none flex items-center gap-1 ${
-                  isActive('/about-us') || isActive('/team')
-                    ? 'text-green-600 border-t-2 border-green-600 md:pt-2'
-                    : ''
+                className={`hover:text-green-600 transition-colors px-2 py-1 cursor-pointer flex items-center gap-1 ${
+                  (isActive('/about-us') || isActive('/team')) ? 'text-green-600 border-t-2 border-green-600 pt-2' : ''
                 }`}
-                aria-haspopup="true"
-                aria-expanded={aboutPopupOpen}
                 onClick={() => setAboutPopupOpen((open) => !open)}
               >
                 About
                 <ChevronDown
                   size={18}
-                  className={`ml-1 transition-transform duration-200 ${aboutPopupOpen ? 'rotate-180' : ''}`}
+                  className={`transition-transform duration-200 ${aboutPopupOpen ? 'rotate-180' : ''}`}
                 />
               </button>
+              
               {aboutPopupOpen && (
                 <div
                   ref={aboutPopupRef}
                   className="absolute left-1/2 -translate-x-1/2 mt-2 w-44 bg-white border border-gray-200 rounded-lg shadow-lg z-50 py-2"
-                  style={{ minWidth: '160px' }}
                 >
                   {aboutPopupLinks.map(({ href, label }) => (
                     <Link
@@ -188,59 +603,21 @@ const Navbar = () => {
                   ))}
                 </div>
               )}
-            </div>
-            {/* Mobile: About as normal link */}
-            <div className="md:hidden">
-              <Link
-                href="/about-us"
-                onClick={handleCloseMenu}
-                className={`hover:text-green-600 transition-colors ${
-                  isActive('/about-us')
-                    ? 'text-green-600 border-t-2 border-green-600 md:pt-2'
-                    : ''
-                }`}
-                aria-current={isActive('/about-us') ? 'page' : undefined}
-              >
-                About
-              </Link>
-            </div>
-          </li>
-          {/* Render the rest of the navLinks */}
-          {navLinks.map(({ href, label }) => (
-            <li key={href} className="flex flex-col items-center">
-              <Link
-                href={href}
-                onClick={handleCloseMenu}
-                className={`hover:text-green-600 transition-colors ${
-                  isActive(href)
-                    ? 'text-green-600 border-t-2 border-green-600 md:pt-2'
-                    : ''
-                }`}
-                aria-current={isActive(href) ? 'page' : undefined}
-                style={{
-                  borderTopWidth: isActive(href) ? undefined : undefined,
-                }}
-              >
-                {label}
-              </Link>
             </li>
-          ))}
-        </ul>
-
-        {/* Mobile-only*/}
-        <div className="md:hidden font-[para] text-[16px] border-t border-gray-200 px-6 py-4 space-y-4 text-gray-700">
-          <div>
-            <span>Call at: +91 9769596096</span>
-          </div>
-          <div>
-            <span>Mail at: franchise@zussioberry.com</span>
-          </div>
-          <Link
-            href="/menu"
-            className="block text-center bg-[#23aa5d] text-white w-full py-2 rounded-md hover:bg-green-700 transition"
-            onClick={handleCloseMenu}>
-            View Menu
-          </Link>
+            
+            {navLinks.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={`hover:text-green-600 transition-colors ${
+                    isActive(href) ? 'text-green-600 border-t-2 border-green-600 pt-2' : ''
+                  }`}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
       </nav>
     </header>
@@ -248,4 +625,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

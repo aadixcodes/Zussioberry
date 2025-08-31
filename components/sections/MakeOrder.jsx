@@ -31,9 +31,9 @@ const MakeOrder = () => {
           </div>
         </div>
 
-      <div className="w-full md:w-1/2 relative flex flex-col items-center">
+      <div className="w-full md:w-1/2 relative flex flex-col items-center bg-black opacity-80">
         {/* Black Container */}
-        <div className="relative z-10 w-full bg-black bg-opacity-60 p-0 rounded-md font-[para] mt-10 md:mt-0">
+        <div className="relative z-10 w-full p-0 rounded-md font-[para] md:mt-0">
           
           {/* Green Banner Inside Black */}
           <div className="w-full relative">
@@ -43,7 +43,7 @@ const MakeOrder = () => {
               className="w-full object-cover"
             />
             <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-black text-2xl sm:text-3xl font-[para] font-bold px-6 py-2 rounded">
+              <span className="text-black text-2xl sm:text-3xl font-[para] font-bold px-6 -mt-5 py-2 rounded">
                 Fill Your Order!
               </span>
             </div>
