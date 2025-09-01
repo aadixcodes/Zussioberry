@@ -8,10 +8,54 @@ import {blogsData} from "./blogsData";
 import {recentPosts} from './blogsData';
 
 const page = () => {
+   const firstBlog = blogsData[0];
 
   return (
     <div>
-      <SummerCooler />
+<section
+        className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[90vh] flex items-center"
+        style={{
+          backgroundImage: "url('/assets/AboutBanner.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="relative max-w-6xl mx-auto w-full px-4 py-10 sm:py-14 md:py-16 flex flex-col-reverse md:grid md:grid-cols-2 gap md:gap-10 items-center h-full">
+          {/* Text Content */}
+          <div className="w-full flex flex-col items-center md:items-start text-center md:text-left mt-8 md:mt-0 justify-center">
+            <h2 className="text-3xl sm:text-4xl md:text-6xl font-[heading-1] text-white mb-3 sm:mb-4">
+              {firstBlog.title.split(' ')[0]} <span className="font-[heading-1]">{firstBlog.title.split(' ').slice(1).join(' ')}</span>
+            </h2>
+            {/* <h3 className="text-lg sm:text-xl md:text-2xl font-[heading-2] font-bold text-white mb-3 sm:mb-4">
+              {firstBlog.desc.split('.')[0]}.
+            </h3> */}
+            <p className="text-xs sm:text-sm md:text-lg font-[para] text-gray-200 leading-relaxed mb-5 sm:mb-6 max-w-xl">
+              {firstBlog.desc.length > 200 ? `${firstBlog.desc.substring(0, 200)}...` : firstBlog.desc}
+            </p>
+            <Link href={`/blogs/${firstBlog.slug}`}>
+              <button className="bg-[#23aa5d] cursor-pointer px-5 py-2 sm:px-6 sm:py-2.5 text-white rounded-lg hover:bg-green-600 text-base sm:text-lg font-[para] transition">
+                Read More
+              </button>
+            </Link>
+          </div>
+          {/* Image */}
+          <div className="w-full flex justify-center md:justify-end items-center">
+            <Image
+              src={firstBlog.image}
+              alt={firstBlog.title}
+              width={320}
+              height={320}
+              className="rounded-lg shadow-lg w-60 h-60 sm:w-80 sm:h-80 object-cover"
+              priority
+            />
+          </div>
+        </div>
+      </section>
+
+
+
+
 
       <section className="py-16 px-4 md:px-12 bg-white">
         <div className="max-w-6xl mx-auto">
@@ -19,7 +63,7 @@ const page = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Left blogsData */}
             <div className="lg:col-span-2 space-y-10">
-              {blogsData.map((blog) => (
+              {blogsData.slice(1).map((blog) => (
                 <div
                   key={blog.id}
                   className="bg-white shadow-md rounded-lg overflow-hidden">
